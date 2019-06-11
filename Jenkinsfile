@@ -34,7 +34,7 @@ pipeline {
     stage('Integration testing') {
       steps {
         sleep 10
-        sh 'sudo curl localhost'
+        sh 'curl localhost'
       }
     }
   }

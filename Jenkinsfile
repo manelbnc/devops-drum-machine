@@ -1,4 +1,4 @@
-Pipeline {
+pipeline {
   agent any
   tools{
 	nodejs 'NodeJS 12.4.0'

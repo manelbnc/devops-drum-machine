@@ -21,7 +21,7 @@ pipeline {
       parallel {
         stage('Deploy') {
           steps {
-            sh 'sudo npm start &'
+            sh ''
           }
         }
         stage('Archive Artifacts') {

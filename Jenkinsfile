@@ -7,14 +7,14 @@ pipeline {
     stage('Compile') {
       agent any
       steps {
-        sh 'sudo npm install'
-        sh 'sudo npm run build'
+        sh 'npm install'
+        sh 'npm run-script build'
       }
     }
     stage('Unit Testing') {
       agent any
       steps {
-        sh 'sudo npm test'
+        sh 'npm test'
       }
     }
     stage('Deploy') {

@@ -31,11 +31,5 @@ pipeline {
         }
       }
     }
-    stage('Integration testing') {
-      steps {
-        sleep 10
-        sh 'curl localhost'
-      }
-    }
   }
 }

@@ -9,6 +9,7 @@ pipeline {
       steps {
         sh 'npm install'
         sh 'npm run-script build'
+	stash includes : 'public/**/*' , name:'stashfiles'
       }
     }
     stage('Unit Testing') {
@@ -21,8 +22,9 @@ pipeline {
       parallel {
         stage('Deploy') {
           steps {
-            sshPublisher(publishers: [sshPublisherDesc(configName: 'student1', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'sites', remoteDirectorySDF: false, removePrefix: 'public', sourceFiles: 'public')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-          }
+	    unstash 'stashfiles'	  
+            sshPublisher(publishers: [sshPublisherDesc(configName: 'student1', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: 'public', sourceFiles: 'public/**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+	  }
         }
         stage('Archive Artifacts') {
           steps {
